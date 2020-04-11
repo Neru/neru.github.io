@@ -1,0 +1,43 @@
+<head>
+	<style>
+		div {
+			margin-bottom: 20px;
+		}
+	</style>
+
+	<div>
+	<label for="lang">Language:</label>
+		<select id="languageCode">
+		  <option value="1">de-DE</option>
+		  <option value="2">de-CH</option>
+		  <option value="3">fr-FR</option>
+		</select>
+	</div>
+	<div>
+		<input type="button" value="Recognize" onClick="recognize()"></input>
+	</div>
+	<div>
+		<label for="output">Output:</label>
+		<span id="output"></span>
+	</div>
+</head>
+<body>
+	<script src="speech.js"></script>
+	<script>
+		const languageCodeSelector = document.querySelector("#languageCode");
+		const speechOutput = document.querySelector("#output");
+	
+		const recognize = async () => {
+			const index = languageCodeSelector.selectedIndex;
+			const languageCode = languageCodeSelector.options[index].text;
+			
+			try {
+				const result = await recognizeSpeech(languageCode);
+				speechOutput.innerText = result.speech;
+			} catch(e) {
+				speechOutput.innerText = e;
+			}
+		}
+		
+	</script>
+</body>
